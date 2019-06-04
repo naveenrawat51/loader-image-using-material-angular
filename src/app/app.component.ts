@@ -1,4 +1,5 @@
 import { Component } from '@angular/core';
+import { HttpClient } from '@angular/common/http';
 
 @Component({
   selector: 'app-root',
@@ -6,5 +7,16 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'loader-image-using-material-angular';
+  title = 'Loader Image in Material Angular using Interceptor';
+  userEmails;
+  constructor( private http: HttpClient){}
+  callApi() {
+       this.http.get<any[]>('https://jsonplaceholder.typicode.com/users')
+      .subscribe( data => { setTimeout(()=> this.userEmails = data, 1000)})
+          
+  }
+
+  cleanApi(){
+    this.userEmails = []
+  }
 }
